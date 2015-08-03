@@ -1,0 +1,18 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     188.165.248.129
+    database_port:     3306
+    database_name:     bitume_insight
+    database_user:     root
+    database_password: pacman
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            fr
+    secret:            001122334455novedi@66778899
+    swiftmailer_username: php.viseo@gmail.com
+    swiftmailer_password: phpviseo92
+    java_dir: /usr/lib/jvm/java-7-openjdk-amd64/bin/java

@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+
+        <parameter key="mink.paths.lib">null</parameter>
+        <parameter key="mink.class">Behat\Mink\Mink</parameter>
+        <parameter key="mink.session.class">Behat\Mink\Session</parameter>
+        <parameter key="mink.driver.symfony.class">Behat\Mink\Driver\BrowserKitDriver</parameter>
+        <parameter key="mink.selectors_handler.class">Behat\Mink\Selector\SelectorsHandler</parameter>
+        <parameter key="mink.default_session">symfony</parameter>
+        <parameter key="mink.javascript_session">zombie</parameter>
+        <parameter key="mink.base_url">null</parameter>
+        <parameter key="mink.show_cmd">null</parameter>
+        <parameter key="mink.show_tmp_dir">%kernel.cache_dir%</parameter>
+        <parameter key="mink.browser_name">firefox</parameter>
+
+    </parameters>
+    <services>
+
+        <service id="behat.mink" class="%mink.class%" scope="prototype" />
+
+        <service id="mink.session.symfony" class="%mink.session.class%" scope="prototype">
+            <argument type="service">
+                <service class="%mink.driver.symfony.class%" scope="prototype">
+                    <argument type="service" id="test.client" />
+                </service>
+            </argument>
+            <argument type="service" id="mink.selectors_handler" />
+            <tag name="mink.session" alias="symfony" />
+        </service>
+
+        <service id="mink.selectors_handler" class="%mink.selectors_handler.class%" />
+
+        <service id="mink.selector.css" class="Behat\Mink\Selector\CssSelector">
+            <tag name="mink.selector" alias="css" />
+        </service>
+
+        <service id="mink.selector.named" class="Behat\Mink\Selector\NamedSelector">
+            <tag name="mink.selector" alias="named" />
+        </service>
+
+    </services>
+</container>

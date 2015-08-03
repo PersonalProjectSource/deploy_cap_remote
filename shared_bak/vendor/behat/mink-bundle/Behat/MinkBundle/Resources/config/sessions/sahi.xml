@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+
+        <parameter key="mink.driver.sahi.class">Behat\Mink\Driver\SahiDriver</parameter>
+        <parameter key="mink.sahi.class">Behat\SahiClient\Client</parameter>
+        <parameter key="mink.sahi.connection.class">Behat\SahiClient\Connection</parameter>
+
+        <parameter key="mink.sahi.sid">null</parameter>
+        <parameter key="mink.sahi.host">localhost</parameter>
+        <parameter key="mink.sahi.port">9999</parameter>
+
+    </parameters>
+    <services>
+
+        <service id="mink.session.sahi" class="%mink.session.class%" scope="prototype">
+            <argument type="service">
+                <service class="%mink.driver.sahi.class%" scope="prototype">
+                    <argument>%mink.browser_name%</argument>
+                    <argument type="service" id="mink.sahi" />
+                </service>
+            </argument>
+            <argument type="service" id="mink.selectors_handler" />
+            <tag name="mink.session" alias="sahi" />
+        </service>
+
+        <service id="mink.sahi" class="%mink.sahi.class%" scope="prototype">
+            <argument type="service">
+                <service class="%mink.sahi.connection.class%" scope="prototype">
+                    <argument>%mink.sahi.sid%</argument>
+                    <argument>%mink.sahi.host%</argument>
+                    <argument>%mink.sahi.port%</argument>
+                </service>
+            </argument>
+        </service>
+
+    </services>
+</container>

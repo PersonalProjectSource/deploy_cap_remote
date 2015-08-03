@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+
+        <parameter key="mink.driver.goutte.class">Behat\Mink\Driver\GoutteDriver</parameter>
+        <parameter key="mink.goutte.class">Behat\Mink\Driver\Goutte\Client</parameter>
+
+    </parameters>
+    <services>
+
+        <service id="mink.session.goutte" class="%mink.session.class%" scope="prototype">
+            <argument type="service">
+                <service class="%mink.driver.goutte.class%" scope="prototype">
+                    <argument type="service" id="mink.goutte" />
+                </service>
+            </argument>
+            <argument type="service" id="mink.selectors_handler" />
+            <tag name="mink.session" alias="goutte" />
+        </service>
+
+        <service id="mink.goutte" class="%mink.goutte.class%" scope="prototype">
+        </service>
+
+    </services>
+</container>

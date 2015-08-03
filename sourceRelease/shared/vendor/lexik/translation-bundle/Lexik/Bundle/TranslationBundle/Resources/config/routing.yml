@@ -1,0 +1,2 @@
+- { resource: routing/app.yml }
+- { resource: routing/api.yml }
